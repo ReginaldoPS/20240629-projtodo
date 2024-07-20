@@ -1,0 +1,18 @@
+{% extends 'padrao.html' %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+  {{titulo_pagina}}
+{% endblock %}
+
+{% block subtitulo %}
+  {{titulo_pagina}}
+{% endblock %}
+
+{% block conteudo %}
+  <form method="POST">
+    {% csrf_token %} {% comment %}esse token projeje para nao ser usado pelo navegador{% endcomment %}
+    {{ form|crispy }}
+    <input type="submit" value="ENVIAR" />
+  </form>
+{% endblock %}

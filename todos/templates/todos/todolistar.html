@@ -1,0 +1,50 @@
+{% extends 'padrao.html' %}
+
+{% block titulo %}
+  Listagem de tarefas
+{% endblock %}
+
+{% block subtitulo %}
+Listagem de tarefas
+{% endblock %}
+
+{% block conteudo%}
+
+<a href="{% url 'todo_criar' %}"
+type="button" class="btn btn-success">Nova Tarefa</a>
+      {% comment %}Inicio da tabela{% endcomment %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Criação</th>
+            <th scope="col">Finalização</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% comment %}{% for tarefa in tarefas %}{% endcomment %}
+          {% for tarefa in todo_list %}
+            <tr>
+              <th scope="row">{{ tarefa.id }}</th>
+              <td>{{ tarefa.titulo }}</td>
+              <td>{{ tarefa.dtCriacao|date:'SHORT_DATE_FORMAT' }}</td>
+              <td>{{ tarefa.dtFinalizado|date:'SHORT_DATE_FORMAT'|default:'-' }}</td>
+
+              {% comment %}botoes de acoes{% endcomment %}
+              <td>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                  <button type="button" onclick="window.location.href='{% url 'todo_atualizar' pk=tarefa.pk %}'" class="btn btn-warning">Editar</button>
+                  <button type="button" onclick="window.location.href='{% url 'todo_completar' pk=tarefa.pk %}'" class="btn btn-info">Completar</button>
+                  <button type="button" onclick="window.location.href='{% url 'todo_deletar' pk=tarefa.pk %}'" class="btn btn-danger">Excluir</button>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% comment %}fim da tabela{% endcomment %}
+      {% endblock %}
+     
